@@ -27,20 +27,12 @@
     <script src="/bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
   </head>
-  <body>
+  <body ng-app="usdaApp" >
     <!--[if lt IE 10]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     
-    <div class="hero-unit">
-      <h1>'Allo, 'Allo!</h1>
-      <p>You now have</p>
-      <ul>
-        <li>HTML5 Boilerplate</li>
-        <li>Modernizr</li>
-        <li>jQuery</li>
-      </ul>
-    </div>
+    <div ng-view=""></div>
     
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
@@ -71,11 +63,14 @@
     <script src="/bower_components/leaflet/dist/leaflet-src.js"></script>
     <script src="/bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
     <script src="/bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
+    <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
     <!-- endbuild -->
   </body>
 </html>
