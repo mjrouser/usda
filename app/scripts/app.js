@@ -17,7 +17,10 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.materialize'
+    'ui.materialize',
+    'nemLogging',
+    'leaflet-directive',
+    'gridshore.c3js.chart'
   ])
   .config(function ($routeProvider) {
     $routeProvider
