@@ -1,1 +1,1 @@
-consol.log('wazzzzup?')
+console.log('wazzzzup?')
