@@ -65,13 +65,9 @@ angular.module('usdaApp')
 	              d > 20   ? '#FEB24C' :
 	              d > 10   ? '#FED976' :
 	                           '#FFEDA0';
-}
+            }
 
-
-        angular.extend($scope, {
-            geojson: {
-                data: statesData,
-                style: function style(feature) {
+       function style(feature) {
 	            return {
 		        weight: 2,
 		        opacity: 1,
@@ -81,6 +77,12 @@ angular.module('usdaApp')
 		        fillColor: getColor(feature.properties.density)
 	            };
                  }
+
+
+        angular.extend($scope, {
+            geojson: {
+                data: statesData,
+                style: style
             }
          });
        }).error(function(){console.log('you done goofed');});
