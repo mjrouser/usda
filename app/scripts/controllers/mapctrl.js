@@ -47,8 +47,8 @@ angular.module('usdaApp')
                     fillOpacity: 0.7
                 }
             }
-        });
-    });
+         });
+       }).error(function(){console.log('you done goofed');});
 
 
 
