@@ -10,8 +10,22 @@
 angular.module('usdaApp')
   .controller('MapCtrl', function ($scope, $http) {
 
+/*
+    $scope.getColor  = function (d) {
+        return d > 1000 ? '#800026' :
+	       d > 500  ? '#BD0026' :
+	       d > 200  ? '#E31A1C' :
+	       d > 100  ? '#FC4E2A' :
+	       d > 50   ? '#FD8D3C' :
+	       d > 20   ? '#FEB24C' :
+	       d > 10   ? '#FED976' :
+	                    '#FFEDA0';
+    };
 
 
+    
+   var d = statesData.feature.properties.density;
+*/
     angular.extend($scope, {
         defaults: {
             scrollWheelZoom: false,
@@ -34,17 +48,50 @@ angular.module('usdaApp')
         }
     });
 
+
+
     $http.get("scripts/data/us-states.js").success(function(data, status) {
+
+      
+
+       /*
+        angular.forEach(statesData.features[i].properties.density, function(value, key){
+	       console.log(value); 
+        });
+        
+       */
+
+        var d =[];
+        for(var i=0; i<statesData.features.length; i++){
+        	 d.push( statesData.features[i].properties.density);
+        }
+        
+        console.log(d);
+
+       
+
+       function getColor(d) {
+        	return d > 1000 ? '#800026' :
+	              d > 500  ? '#BD0026' :
+	              d > 200  ? '#E31A1C' :
+	              d > 100  ? '#FC4E2A' :
+	              d > 50   ? '#FD8D3C' :
+	              d > 20   ? '#FEB24C' :
+	              d > 10   ? '#FED976' :
+	                           '#FFEDA0';
+}
+
+
         angular.extend($scope, {
             geojson: {
                 data: statesData,
                 style: {
-                    fillColor: "green",
                     weight: 2,
                     opacity: 1,
                     color: 'white',
                     dashArray: '3',
-                    fillOpacity: 0.7
+                    fillOpacity: 0.7,
+                    fillColor: getColor(d)
                 }
             }
          });
