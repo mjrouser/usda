@@ -85,14 +85,16 @@ angular.module('usdaApp')
         angular.extend($scope, {
             geojson: {
                 data: statesData,
-                style: {
-                    weight: 2,
-                    opacity: 1,
-                    color: 'white',
-                    dashArray: '3',
-                    fillOpacity: 0.7,
-                    fillColor: getColor(d)
-                }
+                style: function style(feature) {
+	            return {
+		        weight: 2,
+		        opacity: 1,
+		        color: 'white',
+		        dashArray: '3',
+		        fillOpacity: 0.7,
+		        fillColor: getColor(feature.properties.density)
+	            };
+                 }
             }
          });
        }).error(function(){console.log('you done goofed');});
