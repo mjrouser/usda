@@ -54,20 +54,6 @@ angular.module('usdaApp')
 
       
 
-       /*
-        angular.forEach(statesData.features[i].properties.density, function(value, key){
-	       console.log(value); 
-        });
-        
-       */
-
-        var d =[];
-        for(var i=0; i<statesData.features.length; i++){
-        	 d.push( statesData.features[i].properties.density);
-        }
-        
-        console.log(d);
-
        
 
        function getColor(d) {
@@ -79,13 +65,9 @@ angular.module('usdaApp')
 	              d > 20   ? '#FEB24C' :
 	              d > 10   ? '#FED976' :
 	                           '#FFEDA0';
-}
+            }
 
-
-        angular.extend($scope, {
-            geojson: {
-                data: statesData,
-                style: function style(feature) {
+       function style(feature) {
 	            return {
 		        weight: 2,
 		        opacity: 1,
@@ -95,6 +77,12 @@ angular.module('usdaApp')
 		        fillColor: getColor(feature.properties.density)
 	            };
                  }
+
+
+        angular.extend($scope, {
+            geojson: {
+                data: statesData,
+                style: style
             }
          });
        }).error(function(){console.log('you done goofed');});
