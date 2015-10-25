@@ -54,20 +54,6 @@ angular.module('usdaApp')
 
       
 
-       /*
-        angular.forEach(statesData.features[i].properties.density, function(value, key){
-	       console.log(value); 
-        });
-        
-       */
-
-        var d =[];
-        for(var i=0; i<statesData.features.length; i++){
-        	 d.push( statesData.features[i].properties.density);
-        }
-        
-        console.log(d);
-
        
 
        function getColor(d) {
