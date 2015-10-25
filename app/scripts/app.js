@@ -2,12 +2,13 @@
 
 /**
  * @ngdoc overview
- * @name portalApp
+ * @name usdaApp
  * @description
  * # usdaApp
  *
  * Main module of the application.
  */
+
 angular
   .module('usdaApp', [
     'ngAnimate',

@@ -28,10 +28,7 @@ body {
   padding: 0.2em 0;
 }
 
-#map {
-  width: 800px;
-  height: 500px;
-}
+/*
 
 .info {
   padding: 6px 8px;
@@ -57,4 +54,10 @@ body {
   float: left;
   margin-right: 8px;
   opacity: 0.7;
+}
+*/
+
+leaflet {
+  height: 20%;
+  width: 80%;
 }

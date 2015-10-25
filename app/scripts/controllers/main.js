@@ -2,14 +2,13 @@
 
 /**
  * @ngdoc function
- * @name dataPortalApp.controller:MainCtrl
+ * @name usdaApp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the dataPortalApp
+ * Controller of the usdaApp
  */
 angular.module('usdaApp')
-  .controller('MainCtrl', function () {
-
+  .controller('MainCtrl', function ($scope) {
 
 
 
