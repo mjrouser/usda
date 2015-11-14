@@ -10,22 +10,7 @@
 angular.module('usdaApp')
   .controller('MapCtrl', function ($scope, $http) {
 
-/*
-    $scope.getColor  = function (d) {
-        return d > 1000 ? '#800026' :
-	       d > 500  ? '#BD0026' :
-	       d > 200  ? '#E31A1C' :
-	       d > 100  ? '#FC4E2A' :
-	       d > 50   ? '#FD8D3C' :
-	       d > 20   ? '#FEB24C' :
-	       d > 10   ? '#FED976' :
-	                    '#FFEDA0';
-    };
 
-
-    
-   var d = statesData.feature.properties.density;
-*/
     angular.extend($scope, {
         defaults: {
             scrollWheelZoom: false,
@@ -45,14 +30,82 @@ angular.module('usdaApp')
            lat: 37.8,
            lng: -96,
            zoom: 4
+        },
+        events: {
+           map: {
+              enable: ['click', 'drag', 'mousemove'],
+              logic: 'emit'
+           }
         }
+
+        
+    });
+
+    $scope.eventDetected = "No events yet...";
+
+    $scope.$on('leafletDirectiveMap.click', function(event){
+        $scope.eventDetected = "Click";
+        console.log('Click fired!');
+    });
+
+    $scope.$on('leafletDirectiveMap.drag', function(event){
+        $scope.eventDetected = "Drag";
+        console.log('Drag Fired!');
+    });
+
+    $scope.$on('leafletDirectiveMap.mousemove', function(event){
+        $scope.eventDetected = "MouseMove";
+        console.log('Mouse Move Fired!');
     });
 
 
 
     $http.get("scripts/data/us-states.js").success(function(data, status) {
 
-      var naics_mapping = {111110: "Soybean Farming",
+     
+
+       function getColor(d) {
+        	return d > 1000 ? '#800026' :
+	              d > 500  ? '#BD0026' :
+	              d > 200  ? '#E31A1C' :
+	              d > 100  ? '#FC4E2A' :
+	              d > 50   ? '#FD8D3C' :
+	              d > 20   ? '#FEB24C' :
+	              d > 10   ? '#FED976' :
+	                           '#FFEDA0';
+            }
+
+       function style(feature) {
+	            return {
+		        weight: 2,
+		        opacity: 1,
+		        color: 'white',
+		        dashArray: '3',
+		        fillOpacity: 0.7,
+		        fillColor: getColor(feature.properties.density)
+	            };
+           }
+
+
+        angular.extend($scope, {
+            geojson: {
+                data: statesData,
+                style: style//,
+                //events:  
+            }
+         });
+       }).error(function(){console.log('you done goofed');});
+
+
+
+   console.log('hello, is it me youre looking for?');
+
+  });
+
+/*
+
+
+ var naics_mapping = {111110: "Soybean Farming",
                           111120: "Oilseed (except Soybean) Farming",
                           111130: "Dry Pea and Bean Farming",
                           111140: "Wheat Farming",
@@ -118,51 +171,13 @@ angular.module('usdaApp')
                           115310: "Support Activities for Forestry"
                         }
        
-       window.naics_mapping = naics_mapping;
+       $scope.naics_mapping = naics_mapping;
+
        console.log(naics_mapping);
-       function getColor(d) {
-        	return d > 1000 ? '#800026' :
-	              d > 500  ? '#BD0026' :
-	              d > 200  ? '#E31A1C' :
-	              d > 100  ? '#FC4E2A' :
-	              d > 50   ? '#FD8D3C' :
-	              d > 20   ? '#FEB24C' :
-	              d > 10   ? '#FED976' :
-	                           '#FFEDA0';
-            }
-
-       function style(feature) {
-	            return {
-		        weight: 2,
-		        opacity: 1,
-		        color: 'white',
-		        dashArray: '3',
-		        fillOpacity: 0.7,
-		        fillColor: getColor(feature.properties.density)
-	            };
-                 }
-
-
-        angular.extend($scope, {
-            geojson: {
-                data: statesData,
-                style: style
-            }
-         });
-       }).error(function(){console.log('you done goofed');});
 
 
 
-   console.log('hello, is it me youre looking for?');
-
-  });
-
-
-
-
-
-
-
+*/
 
 
 

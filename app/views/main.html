@@ -7,7 +7,11 @@
         <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
       </div>
       <div class="row center" ng-controller="MapCtrl">
-        <leaflet id="theMap" defaults="defaults" center="usa" geojson="geojson" height="500px" width="100%"></leaflet>
+
+        <leaflet defaults="defaults" center="usa" geojson="geojson" event-broadcast="events" height="500px" width="100%"></leaflet>
+             <p>
+                <strong ng-bind="eventDetected"></strong> caught in listener.
+             </p>
       </div>
       <br><br>
     </div>
