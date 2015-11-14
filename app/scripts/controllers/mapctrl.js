@@ -15,22 +15,46 @@ angular.module('usdaApp')
         defaults: {
             scrollWheelZoom: false,
             maxZoom: 18,
-            minZoom: 4,
-            tileLayer: 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ',
-            tileLayerOptions: {
-               attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-		  '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-		  'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-		  id: 'mapbox.light',
-		  detectRetina: true,
-		  reuseTiles: true
-            },
+            minZoom: 4
         },
         usa: {
            lat: 37.8,
            lng: -96,
            zoom: 4
         },
+        
+        layers:{
+          baselayers: {
+             osm: {
+                 name: 'Open Street Map',
+                 url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                 type: 'xyz'
+             },
+             carto:{
+                 name: 'CartoDB',
+                 url: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+                 type: 'xyz'
+             }            
+           },
+           
+           overlays: {
+            /*
+            wms: {
+                    name: 'EEUU States (WMS)',
+                    type: 'wms',
+                    visible: true,
+                    url: 'http://suite.opengeo.org/geoserver/usa/wms',
+                    layerParams: {
+                        layers: 'usa:states',
+                        format: 'image/png',
+                        transparent: true
+                    }
+                }
+                */
+           }
+           
+        },
+        
         events: {
            map: {
               enable: ['click', 'drag', 'mousemove'],
@@ -41,7 +65,7 @@ angular.module('usdaApp')
         
     });
 
-    $scope.eventDetected = "No events yet...";
+    $scope.eventDetected = 'No events yet...';
 
     $scope.$on('leafletDirectiveMap.click', function(event){
         $scope.eventDetected = "Click";
@@ -55,13 +79,13 @@ angular.module('usdaApp')
 
     $scope.$on('leafletDirectiveMap.mousemove', function(event){
         $scope.eventDetected = "MouseMove";
-        console.log('Mouse Move Fired!');
+
     });
 
 
 
-    $http.get("scripts/data/us-states.js").success(function(data, status) {
-
+    $http.get('scripts/data/us-states.geojson').success(function(data, status) {
+       
      
 
        function getColor(d) {
@@ -77,24 +101,40 @@ angular.module('usdaApp')
 
        function style(feature) {
 	            return {
-		        weight: 2,
-		        opacity: 1,
-		        color: 'white',
-		        dashArray: '3',
-		        fillOpacity: 0.7,
-		        fillColor: getColor(feature.properties.density)
+		           weight: 2,
+		           opacity: 1,
+		           color: 'white',
+		           dashArray: '3',
+		           fillOpacity: 0.7,
+		           fillColor: getColor(feature.properties.density)
 	            };
            }
 
 
+        angular.extend($scope.layers.overlays, {
+          states: {
+            name:'States',
+            type: 'geoJSON',
+            data: data,
+            visible: true,
+            layerOptions: {
+              style: style
+              }
+            
+          }
+        });   
+
+/*
         angular.extend($scope, {
             geojson: {
                 data: statesData,
-                style: style//,
-                //events:  
+                style: style 
             }
          });
+*/
+
        }).error(function(){console.log('you done goofed');});
+
 
 
 

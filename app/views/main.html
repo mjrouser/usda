@@ -8,7 +8,7 @@
       </div>
       <div class="row center" ng-controller="MapCtrl">
 
-        <leaflet defaults="defaults" center="usa" geojson="geojson" event-broadcast="events" height="500px" width="100%"></leaflet>
+        <leaflet defaults="defaults" center="usa" geojson="geojson" event-broadcast="events" layers="layers" height="500px" width="100%"></leaflet>
              <p>
                 <strong ng-bind="eventDetected"></strong> caught in listener.
              </p>
