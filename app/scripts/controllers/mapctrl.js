@@ -36,25 +36,10 @@ angular.module('usdaApp')
                  type: 'xyz'
              }            
            },
-           
-           overlays: {
-            /*
-            wms: {
-                    name: 'EEUU States (WMS)',
-                    type: 'wms',
-                    visible: true,
-                    url: 'http://suite.opengeo.org/geoserver/usa/wms',
-                    layerParams: {
-                        layers: 'usa:states',
-                        format: 'image/png',
-                        transparent: true
-                    }
-                }
-                */
-           }
-           
+           overlays:{}          
         },
-        
+ 
+       
         events: {
            map: {
               enable: ['click', 'drag', 'mousemove'],
@@ -64,6 +49,7 @@ angular.module('usdaApp')
 
         
     });
+    
 
     $scope.eventDetected = 'No events yet...';
 
@@ -86,6 +72,8 @@ angular.module('usdaApp')
 
     $http.get('scripts/data/us-states.geojson').success(function(data, status) {
        
+
+
      
 
        function getColor(d) {
@@ -111,27 +99,35 @@ angular.module('usdaApp')
            }
 
 
+
+
+        
+
+        function onEachFeature(feature, layer) {
+          layer.on({
+            click: function() {
+              console.log(layer.feature.properties.name);
+              //$scope.country = layer.feature.properties.name;
+
+            }
+          })
+        }
+
+
         angular.extend($scope.layers.overlays, {
           states: {
             name:'States',
-            type: 'geoJSON',
+            type: 'geoJSONShape',
             data: data,
             visible: true,
             layerOptions: {
-              style: style
+              style: style,
+              onEachFeature: onEachFeature
               }
             
           }
         });   
-
-/*
-        angular.extend($scope, {
-            geojson: {
-                data: statesData,
-                style: style 
-            }
-         });
-*/
+         
 
        }).error(function(){console.log('you done goofed');});
 
@@ -141,6 +137,7 @@ angular.module('usdaApp')
    console.log('hello, is it me youre looking for?');
 
   });
+
 
 /*
 
